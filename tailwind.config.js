@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
+      backgroundImage: {
+        'background-image': "url('src/assets/background.jpg')",
+      },
     },
   },
   plugins: [],
