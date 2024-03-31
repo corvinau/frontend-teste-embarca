@@ -32,7 +32,9 @@ export function CharacterCard({ character }: CharacterCardProps) {
   const handleSpecies = (url: string) => {
     fetch(`${url}`)
       .then((result) => result.json())
-      .then((data) => setSpecies(data.name));
+      .then((data) => {
+        setSpecies(data.name);
+      });
   };
 
   return (
@@ -40,16 +42,18 @@ export function CharacterCard({ character }: CharacterCardProps) {
       <Dialog.Trigger
         onClick={() => {
           handleHomeworld(character.homeworld);
-          handleSpecies(character.species);
+          if (character.species.length !== 0) {
+            handleSpecies(character.species);
+          }
         }}
-        className='rounded-md items-center flex flex-col bg-slate-800 p-5 gap-3 overflow-hidden relative outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-yellow-400'>
+        className='rounded-md items-center flex flex-col bg-slate-800 p-5 gap-3 overflow-hidden relative outline-none hover:ring-2 hover:ring-yellow-400 focus-visible:ring-2 focus-visible:ring-yellow-400'>
         <p className='text-lg font-bold text-slate-300'>{character.name}</p>
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className='inset-0 fixed bg-black/50' />
         <Dialog.Content className='fixed inset-0 text-center md:inset-auto overflow-hidden md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[550px] w-full md:h-[65vh] bg-slate-700 md:rounded-md flex flex-col outline-none'>
-          <Dialog.Close className='absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100 rounded-bl-md outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-yellow-400'>
+          <Dialog.Close className='absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100 rounded-bl-md outline-none hover:ring-2 hover:ring-yellow-400 focus-visible:ring-2 focus-visible:ring-yellow-400'>
             <X className='size-5' />
           </Dialog.Close>
 
@@ -100,9 +104,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
             </p>
             <p className='text-lg leading-6 text-slate-400'>
               <b>Species:</b>{' '}
-              <span className='text-slate-300'>
-                {species.length !== 0 ? species : '-'}
-              </span>
+              <span className='text-slate-300'>{species || '-'}</span>
             </p>
           </div>
         </Dialog.Content>
