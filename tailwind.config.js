@@ -7,7 +7,7 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       backgroundImage: {
-        'background-image': "url('src/assets/background.jpg')",
+        'background-image': "url('public/background.jpg')",
       },
     },
   },
